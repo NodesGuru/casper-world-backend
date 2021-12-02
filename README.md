@@ -5,7 +5,7 @@ This web app monitors Casper network health, including nodes version distributio
 ---
 ## Prerequisites
 
-It's required to install Git, Node.js, Yarn and MongoDB.
+It's required to install Git, Node.js, npm,  Yarn and MongoDB.
 
 ### Update your system
 ```bash
@@ -26,7 +26,7 @@ $ sudo ufw allow 443
 $ sudo ufw allow 3000
 ```
 
-### Install nodejs
+### Install nodejs and npm
 - #### Node installation on Ubuntu
 
   You can install nodejs and npm easily with apt install, just run the following commands.
@@ -46,7 +46,7 @@ If the installation was successful, you should be able to run the following comm
     v6.14.11
 
 ###
-### Yarn installation
+### Install Yarn
 After installing node, this project will need yarn too, so just run the following command.
 
     $ curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
@@ -153,7 +153,7 @@ Create .env file and fill RPC, MongoDB and IP_API_KEY parameters. You can find a
     # API key for https://ip-api.com/ to get location by IP
     IP_API_KEY=
 
-## Testing the project
+## Test the project
 
 ```bash
 yarn run test
@@ -162,7 +162,7 @@ Expected result: all tests are passed
 
 ## Running the project
 
-Run as a service:
+Create service file and start the application using commands below:
 
 ```bash
 echo "[Unit]
@@ -185,7 +185,7 @@ sudo systemctl restart casper-job
 
 ## Documentation
 
-Documentation available [here](https://nodesguru.github.io/casper-world-backend/)
+Documentation is available [here](https://nodesguru.github.io/casper-world-backend/)
 
 ## License
 
