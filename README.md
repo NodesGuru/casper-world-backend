@@ -3,21 +3,30 @@
 This web app monitors Casper network health, including nodes version distribution, VPS centralization, stake distribution (to prevent possible sybil attacks) and stake distribution by country, active/non-active nodes and validators statistics by date, etc.
 
 ---
-## Requirements
+## Prerequisites
 
-You need Node.js and a node global package, npm, Yarn, MongoDB.
+It's required to install Git, Node.js, Yarn and MongoDB.
 
-### Preparation
+### Update your system
 ```bash
 $ sudo apt update
+$ sudo apt upgrade
+```
+
+### Install git
+```bash
 $ sudo apt install git -y
+```
+
+### Open required ports
+```bash
 $ sudo ufw allow 27017 
 $ sudo ufw allow 80
 $ sudo ufw allow 443
 $ sudo ufw allow 3000
 ```
 
-### Node
+### Install nodejs
 - #### Node installation on Ubuntu
 
   You can install nodejs and npm easily with apt install, just run the following commands.
@@ -123,15 +132,15 @@ exit
 
 ---
 
-## Install
+## Install Casper World Backend
 
     $ git clone https://github.com/nodesguru/casper-world-backend
     $ cd casper-world-backend
     $ yarn install
 
-## Configure app
+## Configure the application
 
-Open .env file and fill the following variables:
+Create .env file and fill RPC, MongoDB and IP_API_KEY parameters. You can find an example shown below
 
     RPC=https://node-clarity-mainnet.make.services/rpc
 
