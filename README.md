@@ -133,12 +133,16 @@ exit
 
 Open .env file and fill the following variables:
 
-    RPC=
-    IP_API_KEY=
+    RPC=https://node-clarity-mainnet.make.services/rpc
+
+    # MONGODB
     DB_USER=
     DB_PASSWORD=
     DB_HOST=
-    DB_AUTH_SOURCE=
+    DB_AUTH_SOURCE
+
+    # API key for https://ip-api.com/ to get location by IP
+    IP_API_KEY=
 
 ## Testing the project
 
@@ -169,6 +173,10 @@ sudo systemctl daemon-reload
 sudo systemctl enable casper-job
 sudo systemctl restart casper-job
 ```
+
+## Documentation
+
+Documentation available [here](https://nodesguru.github.io/casper-world-backend/)
 
 ## License
 
