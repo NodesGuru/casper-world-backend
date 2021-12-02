@@ -1,0 +1,134 @@
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>casper-world-backend</title><meta name="description" content="Documentation for casper-world-backend"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">casper-world-backend</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1> casper-world-backend</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#casper-network-stats-amp-decentralization-map" id="casper-network-stats-amp-decentralization-map" style="color: inherit; text-decoration: none;">
+  <h1>Casper Network Stats &amp; Decentralization Map</h1>
+</a>
+<p>This web app monitors Casper network health, including nodes version distribution, VPS centralization, stake distribution (to prevent possible sybil attacks) and stake distribution by country, active/non-active nodes and validators statistics by date, etc.</p>
+<hr>
+
+<a href="#requirements" id="requirements" style="color: inherit; text-decoration: none;">
+  <h2>Requirements</h2>
+</a>
+<p>You need Node.js and a node global package, npm, Yarn, MongoDB.</p>
+
+<a href="#preparation" id="preparation" style="color: inherit; text-decoration: none;">
+  <h3>Preparation</h3>
+</a>
+<pre><code class="language-bash"><span class="hl-0">$ sudo apt update</span><br/><span class="hl-0">$ sudo apt install git -y</span><br/><span class="hl-0">$ sudo ufw allow 27017 </span><br/><span class="hl-0">$ sudo ufw allow 80</span><br/><span class="hl-0">$ sudo ufw allow 443</span><br/><span class="hl-0">$ sudo ufw allow 3000</span>
+</code></pre>
+
+<a href="#node" id="node" style="color: inherit; text-decoration: none;">
+  <h3>Node</h3>
+</a>
+<ul>
+<li>
+<a href="#node-installation-on-ubuntu" id="node-installation-on-ubuntu" style="color: inherit; text-decoration: none;">
+  <h4>Node installation on Ubuntu</h4>
+</a>
+<p>You can install nodejs and npm easily with apt install, just run the following commands.</p>
+<pre><code><span class="hl-1">$</span><span class="hl-0"> </span><span class="hl-1">curl</span><span class="hl-0"> </span><span class="hl-2">https</span><span class="hl-0">:</span><span class="hl-3">//deb.nodesource.com/setup_14.x | sudo bash</span><br/><span class="hl-1">$</span><span class="hl-0"> </span><span class="hl-1">sudo</span><span class="hl-0"> </span><span class="hl-1">apt</span><span class="hl-0"> </span><span class="hl-1">install</span><span class="hl-0"> -</span><span class="hl-1">y</span><span class="hl-0"> </span><span class="hl-1">nodejs</span>
+</code></pre>
+</li>
+<li>
+<a href="#other-operating-systems" id="other-operating-systems" style="color: inherit; text-decoration: none;">
+  <h4>Other Operating Systems</h4>
+</a>
+<p>You can find more information about the installation on the <a href="https://nodejs.org/">official Node.js website</a> and the <a href="https://npmjs.org/">official NPM website</a>.</p>
+</li>
+</ul>
+<p>If the installation was successful, you should be able to run the following command.</p>
+<pre><code><span class="hl-1">$</span><span class="hl-0"> </span><span class="hl-1">node</span><span class="hl-0"> --</span><span class="hl-1">version</span><br/><span class="hl-1">v14</span><span class="hl-0">.</span><span class="hl-4">15.5</span><br/><br/><span class="hl-1">$</span><span class="hl-0"> </span><span class="hl-1">npm</span><span class="hl-0"> --</span><span class="hl-1">version</span><br/><span class="hl-1">v6</span><span class="hl-0">.</span><span class="hl-4">14.11</span>
+</code></pre>
+
+<a href="#" id="" style="color: inherit; text-decoration: none;">
+  <h3></h3>
+</a>
+
+<a href="#yarn-installation" id="yarn-installation" style="color: inherit; text-decoration: none;">
+  <h3>Yarn installation</h3>
+</a>
+<p>After installing node, this project will need yarn too, so just run the following command.</p>
+<pre><code><span class="hl-1">$</span><span class="hl-0"> </span><span class="hl-1">curl</span><span class="hl-0"> -</span><span class="hl-1">sL</span><span class="hl-0"> </span><span class="hl-2">https</span><span class="hl-0">:</span><span class="hl-3">//dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg &gt;/dev/null</span><br/><span class="hl-1">$</span><span class="hl-0"> </span><span class="hl-1">echo</span><span class="hl-0"> </span><span class="hl-5">&quot;deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main&quot;</span><span class="hl-0"> | </span><span class="hl-1">sudo</span><span class="hl-0"> </span><span class="hl-1">tee</span><span class="hl-0"> /</span><span class="hl-1">etc</span><span class="hl-0">/</span><span class="hl-1">apt</span><span class="hl-0">/</span><span class="hl-1">sources</span><span class="hl-0">.</span><span class="hl-1">list</span><span class="hl-0">.</span><span class="hl-1">d</span><span class="hl-0">/</span><span class="hl-1">yarn</span><span class="hl-0">.</span><span class="hl-1">list</span><br/><span class="hl-1">$</span><span class="hl-0"> </span><span class="hl-1">sudo</span><span class="hl-0"> </span><span class="hl-1">apt</span><span class="hl-0"> </span><span class="hl-1">update</span><span class="hl-0"> &amp;&amp; </span><span class="hl-1">sudo</span><span class="hl-0"> </span><span class="hl-1">apt</span><span class="hl-0"> </span><span class="hl-1">install</span><span class="hl-0"> </span><span class="hl-1">yarn</span><span class="hl-0"> -</span><span class="hl-1">y</span>
+</code></pre>
+
+<a href="#-1" id="-1" style="color: inherit; text-decoration: none;">
+  <h3></h3>
+</a>
+
+<a href="#mongodb-installation" id="mongodb-installation" style="color: inherit; text-decoration: none;">
+  <h3>MongoDb installation</h3>
+</a>
+<p>Install the latest stable version.</p>
+<p>If Ubuntu 20:</p>
+<pre><code class="language-bash"><span class="hl-6">echo</span><span class="hl-0"> </span><span class="hl-5">&quot;deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse&quot;</span><span class="hl-0"> | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list</span>
+</code></pre>
+<p>If Ubuntu 18:</p>
+<pre><code class="language-bash"><span class="hl-6">echo</span><span class="hl-0"> </span><span class="hl-5">&quot;deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/5.0 multiverse&quot;</span><span class="hl-0"> | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list</span>
+</code></pre>
+<p>Then continue with the following:</p>
+<pre><code class="language-bash"><span class="hl-0">mkdir -p /data/db</span><br/><span class="hl-0">wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -</span><br/><span class="hl-0">sudo apt-get update</span><br/><span class="hl-0">sudo apt-get install -y mongodb-org &lt; </span><span class="hl-5">&quot;/dev/null&quot;</span><br/><span class="hl-6">echo</span><span class="hl-0"> </span><span class="hl-5">&quot;storage:</span><br/><span class="hl-5">  dbPath: /var/lib/mongodb</span><br/><span class="hl-5">  journal:</span><br/><span class="hl-5">    enabled: true</span><br/><span class="hl-5">systemLog:</span><br/><span class="hl-5">  destination: file</span><br/><span class="hl-5">  logAppend: true</span><br/><span class="hl-5">  path: /var/log/mongodb/mongod.log</span><br/><span class="hl-5">net:</span><br/><span class="hl-5">  port: 27017</span><br/><span class="hl-5">  bindIp: 127.0.0.1, $(curl ifconfig.me)</span><br/><span class="hl-5">processManagement:</span><br/><span class="hl-5">  timeZoneInfo: /usr/share/zoneinfo</span><br/><br/><span class="hl-5">security:</span><br/><span class="hl-5">  authorization: enabled&quot;</span><span class="hl-0"> &gt; /etc/mongod.conf</span><br/><span class="hl-0">systemctl </span><span class="hl-6">enable</span><span class="hl-0"> mongod</span><br/><span class="hl-0">systemctl restart mongod</span><br/><span class="hl-0">systemctl status mongod</span>
+</code></pre>
+<p>Now we need to create сasper user, do the following:</p>
+<p>Open <code>mongosh</code>:</p>
+<pre><code class="language-bash"><span class="hl-0">mongosh</span>
+</code></pre>
+<p>Create Admin:</p>
+<pre><code class="language-bash"><span class="hl-0">use admin</span><br/><span class="hl-0">db.createUser(</span><br/><span class="hl-0">{</span><br/><span class="hl-0">user: </span><span class="hl-5">&quot;Admin&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">pwd: </span><span class="hl-5">&quot;YOUR_</span><span class="hl-1">$ECURE_P</span><span class="hl-5">@ASSW0RD&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">roles: [ { role: </span><span class="hl-5">&quot;userAdminAnyDatabase&quot;</span><span class="hl-0">, db: </span><span class="hl-5">&quot;admin&quot;</span><span class="hl-0"> }, </span><span class="hl-5">&quot;readWriteAnyDatabase&quot;</span><span class="hl-0"> ]</span><br/><span class="hl-0">}</span><br/><span class="hl-0">)</span><br/><span class="hl-6">exit</span>
+</code></pre>
+<p>Re-enter with <code>Admin</code>:</p>
+<pre><code class="language-bash"><span class="hl-0">mongosh -u Admin</span>
+</code></pre>
+<p>Enter your password, in our case it will be <code>YOUR_$ECURE_P@ASSW0RD</code>.</p>
+<p>Create сasper user:</p>
+<pre><code class="language-bash"><span class="hl-0">use casper</span><br/><span class="hl-0">db.createUser(</span><br/><span class="hl-0">{</span><br/><span class="hl-0">user: </span><span class="hl-5">&quot;Casper&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">pwd: </span><span class="hl-5">&quot;YOUR_</span><span class="hl-1">$ECURE_P</span><span class="hl-5">@ASSW0RD&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">roles: [ { role: </span><span class="hl-5">&quot;readWrite&quot;</span><span class="hl-0">, db: </span><span class="hl-5">&quot;casper&quot;</span><span class="hl-0"> } ]</span><br/><span class="hl-0">}</span><br/><span class="hl-0">)</span><br/><span class="hl-6">exit</span>
+</code></pre>
+<hr>
+
+<a href="#install" id="install" style="color: inherit; text-decoration: none;">
+  <h2>Install</h2>
+</a>
+<pre><code><span class="hl-1">$</span><span class="hl-0"> </span><span class="hl-1">git</span><span class="hl-0"> </span><span class="hl-1">clone</span><span class="hl-0"> </span><span class="hl-2">https</span><span class="hl-0">:</span><span class="hl-3">//github.com/nodesguru/casper-world-backend</span><br/><span class="hl-1">$</span><span class="hl-0"> </span><span class="hl-1">cd</span><span class="hl-0"> </span><span class="hl-1">casper</span><span class="hl-0">-</span><span class="hl-1">world</span><span class="hl-0">-</span><span class="hl-1">backend</span><br/><span class="hl-1">$</span><span class="hl-0"> </span><span class="hl-1">yarn</span><span class="hl-0"> </span><span class="hl-1">install</span>
+</code></pre>
+
+<a href="#configure-app" id="configure-app" style="color: inherit; text-decoration: none;">
+  <h2>Configure app</h2>
+</a>
+<p>Open .env file and fill the following variables:</p>
+<pre><code><span class="hl-7">RPC</span><span class="hl-0">=</span><br/><span class="hl-7">IP_API_KEY</span><span class="hl-0">=</span><br/><span class="hl-7">DB_USER</span><span class="hl-0">=</span><br/><span class="hl-7">DB_PASSWORD</span><span class="hl-0">=</span><br/><span class="hl-7">DB_HOST</span><span class="hl-0">=</span><br/><span class="hl-7">DB_AUTH_SOURCE</span><span class="hl-0">=</span>
+</code></pre>
+
+<a href="#testing-the-project" id="testing-the-project" style="color: inherit; text-decoration: none;">
+  <h2>Testing the project</h2>
+</a>
+<pre><code class="language-bash"><span class="hl-0">yarn run </span><span class="hl-6">test</span>
+</code></pre>
+<p>Expected result: all tests are passed</p>
+
+<a href="#running-the-project" id="running-the-project" style="color: inherit; text-decoration: none;">
+  <h2>Running the project</h2>
+</a>
+<p>Run as a service:</p>
+<pre><code class="language-bash"><span class="hl-6">echo</span><span class="hl-0"> </span><span class="hl-5">&quot;[Unit]</span><br/><span class="hl-5">Description=Casper Job</span><br/><span class="hl-5">After=network-online.target</span><br/><span class="hl-5">[Service]</span><br/><span class="hl-5">User=</span><span class="hl-1">$USER</span><br/><span class="hl-5">WorkingDirectory=</span><span class="hl-1">$HOME</span><span class="hl-5">/casper-world-backend</span><br/><span class="hl-5">ExecStart=$(which yarn) --cwd </span><span class="hl-1">$HOME</span><span class="hl-5">/casper-world-backend/ start</span><br/><span class="hl-5">Restart=always</span><br/><span class="hl-5">RestartSec=1</span><br/><span class="hl-5">LimitNOFILE=10000</span><br/><span class="hl-5">[Install]</span><br/><span class="hl-5">WantedBy=multi-user.target&quot;</span><span class="hl-0"> &gt; </span><span class="hl-1">$HOME</span><span class="hl-0">/casper-job.service</span><br/><span class="hl-0">sudo mv </span><span class="hl-1">$HOME</span><span class="hl-0">/casper-job.service /etc/systemd/system/casper-job.service</span><br/><span class="hl-0">sudo systemctl daemon-reload</span><br/><span class="hl-0">sudo systemctl </span><span class="hl-6">enable</span><span class="hl-0"> casper-job</span><br/><span class="hl-0">sudo systemctl restart casper-job</span>
+</code></pre>
+
+<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+  <h2>License</h2>
+</a>
+<p>Released under the MIT license.</p>
+<p>MIT License</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
+<p>Copyright (c) <a href="https://github.com/nodesguru"> Nodes.Guru </a></p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Modules</a></li><li class=" tsd-kind-module"><a href="modules/db_connect.html">db/connect</a></li><li class=" tsd-kind-module"><a href="modules/db_methods.html">db/methods</a></li><li class=" tsd-kind-module"><a href="modules/db_models_logger.html">db/models/logger</a></li><li class=" tsd-kind-module"><a href="modules/db_models_validator.html">db/models/validator</a></li><li class=" tsd-kind-module"><a href="modules/jobs_main.html">jobs/main</a></li><li class=" tsd-kind-module"><a href="modules/test_mock_data.html">test/mock/data</a></li><li class=" tsd-kind-module"><a href="modules/types.html">types</a></li><li class=" tsd-kind-module"><a href="modules/utils_axios.html">utils/axios</a></li><li class=" tsd-kind-module"><a href="modules/utils_helpers.html">utils/helpers</a></li><li class=" tsd-kind-module"><a href="modules/utils_vps.html">utils/vps</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li><li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
