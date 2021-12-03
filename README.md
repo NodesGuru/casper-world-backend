@@ -141,12 +141,14 @@ exit
 ## Configure the application
 
 Create .env file and fill parameters:
-- RPC=https://node-clarity-mainnet.make.services/rpc,
+- RPC=https://node-clarity-mainnet.make.services/rpc
 - MongoDB parametrs - could be taken from MongoDb installation section
 - IP_API_KEY parameters - To obtain it you have to register on https://ip-api.com/
+
 You can find an example shown below
+
     
-    Casper RPC
+    # Casper RPC
     RPC=https://node-clarity-mainnet.make.services/rpc
 
     # MONGODB
