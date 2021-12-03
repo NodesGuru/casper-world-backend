@@ -146,7 +146,7 @@ Create .env file and fill parameters:
 - IP_API_KEY parameters - To obtain it you have to register on https://ip-api.com/
 You can find an example shown below
     
-    #Casper RPC
+    Casper RPC
     RPC=https://node-clarity-mainnet.make.services/rpc
 
     # MONGODB
