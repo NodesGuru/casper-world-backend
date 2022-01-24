@@ -111,4 +111,5 @@ export interface ILocation {
   country: string;
   lat: number;
   lon: number;
+  ip: string;
 }

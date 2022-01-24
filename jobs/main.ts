@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { mappingVps } from '../utils/vps'
-import { getStatus, getPeers, getValidatorsInfo, getLocation } from '../utils/helpers'
-import { IDelegator, INode, IValidator, IValidatorBid, IValidatorStake } from '../types'
+import { getStatus, getPeers, getValidatorsInfo, getLocation, sleep } from '../utils/helpers'
+import { IDelegator, ILocation, INode, IValidator, IValidatorBid, IValidatorStake } from '../types'
 import { getPeersFromDB, insertValidatorsToDB } from '../db/methods'
 
 export default async function updateValidators() {
@@ -89,11 +89,10 @@ export function associateNodeByKey(nodes: INode[], key: string): INode {
 }
 
 async function addLocationsToValidators(validators: IValidator[]): Promise<IValidator[]> {
-  const validatorsLocations = await Promise.all(validators.map(v => v.ip ? getLocation(v.ip) : null))
+  const validatorsLocations = await getValidatorsLocations(validators.filter(v => v.ip))
 
-  return validators.map((v, i) => {
-    const curLoc = validatorsLocations[i]
-
+  return validators.map(v => {
+    const curLoc = validatorsLocations.filter(l => l?.ip === v.ip)[0]
     return {
       ...v,
       vps: curLoc?.org ? mappingVps(curLoc!.org) : curLoc?.isp ? mappingVps(curLoc!.isp) : null,
@@ -102,4 +101,22 @@ async function addLocationsToValidators(validators: IValidator[]): Promise<IVali
       longitude: curLoc?.lon ?? null
     }
   })
+}
+
+async function getValidatorsLocations(validators: IValidator[]): Promise<Partial<ILocation>[]> {
+  // API endpoints are limited to 45 HTTP requests per minute from an IP address (https://ip-api.com/)
+  const TIMEOUT_API = 1000 * 61
+  const maxBulkCount = 40
+  const result = []
+
+  do {
+    const bulkValidators = validators.splice(0, maxBulkCount)
+    const validatorsLocations = await Promise.all(bulkValidators.map(v => getLocation(v.ip!)))
+    result.push(...validatorsLocations)
+    if (validators.length > 0) {
+      await sleep(TIMEOUT_API)
+    }
+  } while (validators.length > 0)
+
+  return result
 }

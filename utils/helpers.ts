@@ -115,12 +115,13 @@ export async function getStatus(ip: string): Promise<INode | undefined> {
  * @param {string} ip IP of the node
  * @return {ILocation} Location data of the node
  */
-export async function getLocation(ip: string): Promise<ILocation | undefined> {
+export async function getLocation(ip: string): Promise<Partial<ILocation>> {
   try {
-    const { data } = await axios.get(`https://pro.ip-api.com/json/${ip}?key=${process.env.IP_API_KEY}`)
-    return { org: data.org, isp: data.isp, country: data.country, lat: data.lat, lon: data.lon }
+    const { data } = await axios.get(`http://ip-api.com/json/${ip}`)
+    return { org: data.org, isp: data.isp, country: data.country, lat: data.lat, lon: data.lon, ip }
   } catch (e) {
     console.error((e as Error).message)
+    return { ip }
   }
 }
 
@@ -134,6 +135,15 @@ export function addMinutesToCurrentDate(minutes: number): string {
   const SECONDS_PER_MINUTE = 60
   const MILLISECONDS_PER_SECOND = 1000
   return new Date(Date.now() + (MILLISECONDS_PER_SECOND * SECONDS_PER_MINUTE * minutes)).toISOString()
+}
+
+/**
+ * Function to pause execution for a fixed amount of time
+ *
+ * @param {number} ms sleep time milliseconds
+ */
+export async function sleep(ms: number) {
+  await new Promise(resolve => setTimeout(resolve, ms))
 }
 
 function validateIp(input: string): boolean {

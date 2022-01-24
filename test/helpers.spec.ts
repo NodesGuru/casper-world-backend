@@ -85,11 +85,11 @@ describe('Get node locations', () => {
     expect(data).toMatchObject(MockData.location.data)
   })
 
-  test('should return undefined', async () => {
+  test('should return ip', async () => {
     console.error = jest.fn()
 
     const data = await getLocation(ip)
     expect(console.error).toHaveBeenCalled()
-    expect(data).toBeUndefined()
+    expect(data).toMatchObject({ ip })
   })
 })

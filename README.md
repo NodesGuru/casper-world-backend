@@ -142,8 +142,7 @@ exit
 
 Create .env file and fill parameters:
 - RPC=https://node-clarity-mainnet.make.services/rpc
-- MongoDB parametrs - could be taken from MongoDb installation section
-- IP_API_KEY parameters - To obtain it you have to register on https://ip-api.com/
+- MongoDB parameters - could be taken from MongoDb installation section
 
 You can find an example shown below
 
@@ -156,9 +155,6 @@ You can find an example shown below
     DB_PASSWORD=YOUR_%24ECURE_P%40ASSW0RD
     DB_HOST=127.0.0.1
     DB_AUTH_SOURCE=casper
-
-    # API key for https://ip-api.com/ to get location by IP
-    IP_API_KEY=CrgZy9w7LxxXeuQb
     
 
 ## Test the project
